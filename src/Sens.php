@@ -52,15 +52,11 @@ class Sens
 		try {
 
 		    $post_name = 'form_params';
+            return $this->httpClient()->post($endPointUrl, [
+                'headers'=>array('Content-Type'=>'application/json','X-NCP-auth-key'=>$this->{"X-NCP-auth-key"}, 'X-NCP-service-secret'=>$this->{"X-NCP-service-secret"}),
+                'body'=>json_encode($params)
+            ]);
 
-		    return $this->httpClient()->post($endPointUrl, 
-						       array(
-                                'headers'=>array('Content-Type'=>'application/json','X-NCP-auth-key'=>$this->{"X-NCP-auth-key"}, 'X-NCP-service-secret'=>$this->{"X-NCP-service-secret"}),
-                                'body'=>$params
-                                )
-						    
-						    );
-			
 		
 			
 

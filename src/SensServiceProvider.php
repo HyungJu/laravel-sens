@@ -18,9 +18,9 @@ class SensServiceProvider extends ServiceProvider
             ->needs(Sens::class)
             ->give(function () {
                 return new Sens(
-                    config('sens.x-ncp-auth-key'),
-config('sens.x-ncp-service-secret'),
-config('sens.serviceid'),
+                    config('services.sens.x-ncp-auth-key'),
+config('services.sens.x-ncp-service-secret'),
+config('services.sens.serviceid'),
                     new HttpClient()
                 );
             });

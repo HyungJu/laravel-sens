@@ -5,7 +5,7 @@ namespace NotificationChannels\Sens;
 use Illuminate\Notifications\Notification;
 use NotificationChannels\Sens\Exceptions\CouldNotSendNotification;
 
-class SenseChannel
+class SensChannel
 {
     /**
      * @var Sens

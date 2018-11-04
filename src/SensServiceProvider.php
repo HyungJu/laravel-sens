@@ -1,7 +1,7 @@
 <?php
 
 namespace NotificationChannels\Sens;
-
+use GuzzleHttp\Client as HttpClient;
 use Illuminate\Support\ServiceProvider;
 
 class SensServiceProvider extends ServiceProvider

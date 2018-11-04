@@ -24,7 +24,7 @@ class Sens
     {
         $this->{"X-NCP-auth-key"} = $authkey;
 	$this->{"X-NCP-service-secret"} = $service_secret;
-	$this->serviceid = $service_id;
+	$this->serviceId = $service_id;
 
         $this->http = $httpClient;
     }
@@ -42,12 +42,12 @@ class Sens
    
     public function sendMessage($params)
     {
-		if (empty( $this->{"X-NCP-auth-key"}) || empty($this->{"X-NCP-service-secret"}) || empty($this->serviceid))
+		if (empty( $this->{"X-NCP-auth-key"}) || empty($this->{"X-NCP-service-secret"}) || empty($this->serviceId))
 		{
 		    throw CouldNotSendNotification::NCPTokenNotProvided('Naver Cloud Platform Token Required');
 		}
 
-		$endPointUrl = 'https://api-sens.ncloud.com/v1/sms/services/'.$this->serviceid.'/messages';
+		$endPointUrl = 'https://api-sens.ncloud.com/v1/sms/services/'.$this->serviceId.'/messages';
 
 		try {
 

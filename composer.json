@@ -1,0 +1,48 @@
+{
+    "name": "hyungju/laravel-sens",
+    "description": "NCP Sens Notifications Driver",
+    "homepage": "https://github.com/hyungju/laravel-sens",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "HyungJu Sung",
+            "email": "sungkisa@naver.com",
+            "homepage": "https://hyungjus.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+        "guzzlehttp/guzzle": "^6.2",
+        "illuminate/notifications": ">=5.3",
+        "illuminate/support": ">=5.1"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.5",
+        "phpunit/phpunit": "5.*",
+        "orchestra/testbench": "3.4.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "NotificationChannels\\Sens\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "NotificationChannels\\Sens\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "NotificationChannels\\Sens\\SensServiceProvider"
+            ]
+        }
+    }
+}

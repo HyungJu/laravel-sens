@@ -1,16 +1,5 @@
-# Telegram Notifications Channel for Laravel 5.3 [WIP]
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/telegram.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/telegram)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/laravel-notification-channels/telegram/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/telegram)
-[![StyleCI](https://styleci.io/repos/65490735/shield)](https://styleci.io/repos/65490735)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/d28e31ec-55ce-4306-88a3-84d5d14ad3db.svg?style=flat-square)](https://insight.sensiolabs.com/projects/d28e31ec-55ce-4306-88a3-84d5d14ad3db)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/telegram.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/telegram)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/telegram/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/telegram/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/telegram.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/telegram)
-
-This package makes it easy to send Telegram notification using [Telegram Bot API](https://core.telegram.org/bots) with Laravel 5.3.
-
+# 라라벨 네이버 클라우드 플랫폼 SENS SMS 전송 채널
+code based on https://github.com/laravel-notification-channels/telegram 
 ## Contents
 
 - [Installation](#installation)
@@ -30,7 +19,7 @@ This package makes it easy to send Telegram notification using [Telegram Bot API
 You can install the package via composer:
 
 ``` bash
-composer require laravel-notification-channels/telegram
+composer require hyungju/laravel-sens
 ```
 
 You must install the service provider:
@@ -39,100 +28,61 @@ You must install the service provider:
 // config/app.php
 'providers' => [
     ...
-    NotificationChannels\Telegram\TelegramServiceProvider::class,
+    NotificationChannels\Sens\SensServiceProvider::class,
 ],
 ```
 
-## Setting up your Telegram Bot
+## 토큰 세팅하기
 
-Talk to [@BotFather](https://core.telegram.org/bots#6-botfather) and generate a Bot API Token.
+https://sens.ncloud.com/assets/html/docs/index.html?url=https://api-sens.ncloud.com/docs/openapi/ko
 
-Then, configure your Telegram Bot API Token:
+여기 SMS발송 POST를 참고해서 세팅해주세요.
 
 ```php
 // config/services.php
 ...
-'telegram-bot-api' => [
-    'token' => env('TELEGRAM_BOT_TOKEN', 'YOUR BOT TOKEN HERE')
-],
+    'sens' => [
+        'x-ncp-auth-key' => env('sens.x-ncp-auth-key'),
+        'x-ncp-service-secret' => env('sens.x-ncp-service-secret'),
+        'serviceid' => env('sens.serviceid'),
+    ],
 ...
 ```
 
+하신후에 .env에서도 
+```
+sens.x-ncp-auth-key="KEY"
+sens.x-ncp-service-secret="KEY"
+sens.serviceid="KEY"
+```
+
+설정해주세요
 ## Usage
 
 You can now use the channel in your `via()` method inside the Notification class.
 
 ``` php
-use NotificationChannels\Telegram\TelegramChannel;
-use NotificationChannels\Telegram\TelegramMessage;
+use NotificationChannels\Sens\SensChannel;
+use NotificationChannels\Sens\SensMessage;
 use Illuminate\Notifications\Notification;
 
 class InvoicePaid extends Notification
 {
     public function via($notifiable)
     {
-        return [TelegramChannel::class];
+        return [SensChannel::class];
     }
 
-    public function toTelegram($notifiable)
+
+    public function toSens($notifiable)
     {
-        $url = url('/invoice/' . $this->invoice->id);
-
-        return TelegramMessage::create()
-            ->to($this->user->telegram_user_id) // Optional.
-            ->content("*HELLO!* \n One of your invoices has been paid!") // Markdown supported.
-            ->button('View Invoice', $url); // Inline Button
-    }
+        return SensMessage::create()
+            ->content("[라라벨 NCP Sens Notification Channel TEST]\n라라벨의 네이버 클라우드 플랫폼 SENS 채널 테스트입니다. 이 문자는 ".$notifiable->name." 유저에게 발송되었습니다.")->countrycode("82")->forcommon()->tolms()->subject("LMS로 전송")->to($notifiable->phone)->from("등록된 발신자번호");
+    } 
 }
 ```
 
-Here's a screenshot preview of the above notification on Telegram Messenger:
-
-![Laravel Telegram Notification Example](https://cloud.githubusercontent.com/assets/1915268/17590374/2e05e872-5ff7-11e6-992f-63d5f3df2db3.png)
-
-### Attach a Photo
-
-``` php
-...
-    public function toTelegram($notifiable)
-    {
-        $url = url('/file/' . $this->file->id);
-
-        return TelegramMessage::create()
-            ->to($this->user->telegram_user_id) // Optional.
-            ->content("*bold text* [inline URL](http://www.example.com/)") // Markdown supported.
-            ->file('/storage/archive/6029014.jpg', 'photo') // local photo
-            // OR
-            // ->file('https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6029/6029014_rd.jpg', 'photo') // remote photo
-            ->button('Download PDF', $url); // Inline Button
-    }
-...
-```
-Sample :
-![photo5879686121305255739](https://user-images.githubusercontent.com/785830/46316802-ff82b300-c5dd-11e8-85c9-58c66ad29895.jpg)
-
-
-### Attach a Document
-
-``` php
-...
-    public function toTelegram($notifiable)
-    {
-        $url = url('/file/' . $this->file->id);
-
-        return TelegramMessage::create()
-            ->to($this->user->telegram_user_id) // Optional.
-            ->content("*bold text* [inline URL](http://www.example.com/)") // Markdown supported.
-            ->file('/storage/archive/file.pdf', 'document') // local file
-            // OR
-            // ->file('http://www.domain.com/file.pdf', 'document') // remote file
-            ->button('Download PDF', $url); // Inline Button
-    }
-...
-```
-Sample :
-![photo5879686121305255737](https://user-images.githubusercontent.com/785830/46316801-feea1c80-c5dd-11e8-99c2-21d00b165a66.jpg)
-
+     
 
 ### Routing a message
 
@@ -151,28 +101,28 @@ public function routeNotificationForTelegram()
 }
 ...
 ```
+[TODO] 곧 구현
+
 
 ### Available Message methods
 
-- `to($chatId)`: (integer) Recipient's chat id.
-- `content('')`: (string) Notification message, supports markdown. For more information on supported markdown styles, check out these [docs](https://telegram-bot-sdk.readme.io/docs/sendmessage#section-markdown-style).
-- `button($text, $url)`: (string) Adds an inline "Call to Action" button. You can add as many as you want and they'll be placed 2 in a row.
-- `options([])`: (array) Allows you to add additional or override `sendMessage` payload (A Telegram Bot API method used to send message internally). For more information on supported parameters, check out these [docs](https://telegram-bot-sdk.readme.io/docs/sendmessage).
+[TODO] 곧 가독성있게 정리
 
-## Alternatives
+ * to
+ * from
+ * tosms
+ * tolms
+* forad
+* forcommon
+* countrycode
+* content
+* subject
 
-For advance usage, please consider using [telegram-bot-sdk](https://github.com/irazasyed/telegram-bot-sdk) instead.
+SensMessage.php를 참고하여 작업 부탁드립니다
+
+조만간 다시 정리해오겠습니다
 
 
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
-
-## Testing
-
-``` bash
-$ composer test
-```
 
 ## Security
 
@@ -183,8 +133,10 @@ If you discover any security related issues, please email syed@lukonet.com inste
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
+- [성형주](https://github.com/hyungju) - Modified telegram channel for ncp sens sms
 
-- [Syed Irfaq R.](https://github.com/irazasyed)
+- [Syed Irfaq R.](https://github.com/irazasyed) - Original Telegram Channel
+
 - [All Contributors](../../contributors)
 
 ## License

@@ -18,7 +18,12 @@ class SensMessage
 
     public function to($number)
     {
-        $this->payload['to'] = $number;
+        $this->payload['to'] = array($number);
+        return $this;
+    }
+    public function from($number)
+    {
+        $this->payload['from'] = $number;
         return $this;
     }
    public function tosms()
@@ -32,17 +37,17 @@ class SensMessage
     }
   public function forad()
     {
-        $this->payload['contenttype'] = 'AD';
+        $this->payload['contentType'] = 'AD';
         return $this;
     }
  public function forcommon()
     {
-        $this->payload['contenttype'] = 'COMM';
+        $this->payload['contentType'] = 'COMM';
         return $this;
     }
    public function countrycode($code)
     {
-        $this->payload['countrycode'] = $code;
+        $this->payload['countryCode'] = $code;
         return $this;
     }
         public function content($content)

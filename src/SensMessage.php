@@ -14,7 +14,7 @@ class SensMessage
         return new static($content);
     }
 
-    public function __construct()
+    public function __construct($content)
     {
         $this->content($content);	
     }

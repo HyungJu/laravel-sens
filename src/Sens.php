@@ -42,7 +42,7 @@ class Sens
    
     public function sendMessage($params)
     {
-		if (empty($this->"X-NCP-auth-key") || empty($this->"X-NCP-service-secret") || empty($this->serviceid))
+		if (empty( $this->{"X-NCP-auth-key"}) || empty($this->{"X-NCP-service-secret"}) || empty($this->serviceid))
 		{
 		    throw CouldNotSendNotification::NCPTokenNotProvided('Naver Cloud Platform Token Required');
 		}

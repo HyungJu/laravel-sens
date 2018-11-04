@@ -24,7 +24,7 @@ class Sens
     {
         $this->{"X-NCP-auth-key"} = $authkey;
 	$this->{"X-NCP-service-secret"} = $service_secret;
-	$this->serviceid = $serviceid;
+	$this->serviceid = $service_id;
 
         $this->http = $httpClient;
     }

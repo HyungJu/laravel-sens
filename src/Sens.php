@@ -53,9 +53,16 @@ class Sens
 
 		    $post_name = 'form_params';
 
-		    return $this->httpClient()->post($endPointUrl, [
-			     GuzzleHttp\RequestOptions::JSON => $params,
-		    ]);
+		    return $this->httpClient()->post($endPointUrl, 
+						       array(
+                                'headers'=>array('Content-Type'=>'application/json'),
+                                'json'=>$params
+                                )
+						    
+						    );
+			
+		
+			
 
 		} catch (Exception $exception) {
 		    throw CouldNotSendNotification::serviceRespondedWithAnError($exception);

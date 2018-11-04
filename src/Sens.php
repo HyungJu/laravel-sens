@@ -22,8 +22,8 @@ class Sens
      */
     public function __construct($authkey,$service_secret,$service_id, HttpClient $httpClient = null)
     {
-        $this->"X-NCP-auth-key" = $authkey;
-	$this->"X-NCP-service-secret" = $service_secret;
+        $this->{"X-NCP-auth-key"} = $authkey;
+	$this->{"X-NCP-service-secret"} = $service_secret;
 	$this->serviceid = $serviceid;
 
         $this->http = $httpClient;

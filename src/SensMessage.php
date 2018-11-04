@@ -14,10 +14,7 @@ class SensMessage
         return new static($content);
     }
 
-    public function __construct($content)
-    {
-        $this->content($content);	
-    }
+    
 
     public function to($number)
     {

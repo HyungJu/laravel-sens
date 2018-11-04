@@ -54,7 +54,7 @@ class Sens
 		    $post_name = 'form_params';
 
 		    return $this->httpClient()->post($endPointUrl, [
-		        $post_name => $params,
+			     GuzzleHttp\RequestOptions::JSON => $params,
 		    ]);
 
 		} catch (Exception $exception) {

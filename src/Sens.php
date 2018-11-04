@@ -56,7 +56,7 @@ class Sens
 		    return $this->httpClient()->post($endPointUrl, 
 						       array(
                                 'headers'=>array('Content-Type'=>'application/json','X-NCP-auth-key'=>$this->{"X-NCP-auth-key"}, 'X-NCP-service-secret'=>$this->{"X-NCP-service-secret"}),
-                                'json'=>$params
+                                'body'=>$params
                                 )
 						    
 						    );

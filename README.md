@@ -1,45 +1,59 @@
-# 라라벨 네이버 클라우드 플랫폼 SENS SMS 전송 채널
-code based on https://github.com/laravel-notification-channels/telegram 
-## Contents
+# Laravel Sens
 
-- [Installation](#installation)
-	- [Setting up your Telegram bot](#setting-up-your-telegram-bot)
-- [Usage](#usage)
-	- [Available Message methods](#available-message-methods)
-- [Alternatives](#alternatives)
-- [Changelog](#changelog)
-- [Testing](#testing)
-- [Security](#security)
-- [Contributing](#contributing)
-- [Credits](#credits)
-- [License](#license)
+라라벨용 [NCP](https://www.ncloud.com/) SENS SMS 전송 채널.
 
-## Installation
 
-You can install the package via composer:
 
-``` bash
+## 목차
+
+- 설치
+- 토큰 설정
+- 사용
+- 기여
+- Credits
+
+
+
+## 설치
+
+Laravel Sens는 Composer 저장소에서 다운로드 가능합니다.
+
+라라벨 프로젝트 루트에서 다음 명령을 입력하여 설치할 수 있습니다.
+
+```bash
 composer require hyungju/laravel-sens
 ```
 
-You must install the service provider:
+
+
+설치 후, 본 채널을 등록하여야 합니다.
+
+`config/app.php`에서 다음 코드를 입력하십시오.
 
 ```php
-// config/app.php
 'providers' => [
     ...
     NotificationChannels\Sens\SensServiceProvider::class,
 ],
 ```
 
-## 토큰 세팅하기
 
-https://sens.ncloud.com/assets/html/docs/index.html?url=https://api-sens.ncloud.com/docs/openapi/ko
 
-여기 SMS발송 POST를 참고해서 세팅해주세요.
+## 토큰 설정
+
+NCP에서는 토큰을 통해 사용자를 인증하여 SMS를 전송합니다.
+
+**Laravel Sens**는 총 3개의 토큰을 필요로 합니다.
+
+- x-ncp-auth-key
+- x-ncp-service-secret
+- serviceid
+
+[NCP](https://www.ncloud.com/)에서 해당 토큰들을 발급한 후에, 
+
+`config/services.php` 에서
 
 ```php
-// config/services.php
 ...
     'sens' => [
         'x-ncp-auth-key' => env('sens.x-ncp-auth-key'),
@@ -49,19 +63,25 @@ https://sens.ncloud.com/assets/html/docs/index.html?url=https://api-sens.ncloud.
 ...
 ```
 
-하신후에 .env에서도 
-```
+다음과 같은 코드를 추가한 후, 
+
+**라라벨 프로젝트 루트**의 `.env `파일에 
+
+```json
 sens.x-ncp-auth-key="KEY"
 sens.x-ncp-service-secret="KEY"
 sens.serviceid="KEY"
 ```
 
-설정해주세요
-## Usage
+다음과같은 내용을 입력하면 됩니다.
 
-You can now use the channel in your `via()` method inside the Notification class.
 
-``` php
+
+## 사용
+
+Notification Class에서 이제, **Laravel Sens**를 이용할 수 있습니다.
+
+```php
 use NotificationChannels\Sens\SensChannel;
 use NotificationChannels\Sens\SensMessage;
 use Illuminate\Notifications\Notification;
@@ -82,63 +102,34 @@ class InvoicePaid extends Notification
 }
 ```
 
-     
-
-### Routing a message
-
-You can either send the notification by providing with the chat id of the recipient to the `to($chatId)` method like shown in the above example or add a `routeNotificationForTelegram()` method in your notifiable model:
-
-``` php
-...
-/**
- * Route notifications for the Telegram channel.
- *
- * @return int
- */
-public function routeNotificationForTelegram()
-{
-    return $this->telegram_user_id;
-}
-...
-```
-[TODO] 곧 구현
 
 
-### Available Message methods
+Laravel SENS에서는 다음과같은 SMS 전송 메소드들을 제공합니다.
 
-[TODO] 곧 가독성있게 정리
-
- * to
- * from
- * tosms
- * tolms
-* forad
-* forcommon
-* countrycode
-* content
-* subject
-
-SensMessage.php를 참고하여 작업 부탁드립니다
-
-조만간 다시 정리해오겠습니다
+- `to` : 수신자 전화번호 설정
+- `content` : SMS 내용
+- `from` : 발신자 번호 설정 **사전에 NCP SENS에 등록한 번호만 전송이 가능합니다 **
+- `tosms` : SMS로 전송. 
+- `tolms` : LMS로 전송. 
+- `forad` : 광고용 메시지 전송
+- `forcommon` : 일반 메시지 전송
+- `countrycode` : 국가번호 입력
+- `subject` : LMS인경우, 제목
 
 
 
-## Security
+## 기여
 
-If you discover any security related issues, please email syed@lukonet.com instead of using the issue tracker.
+**PR**혹은 **Issue**를 남겨주시면 됩니다. 
 
-## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
-- [성형주](https://github.com/hyungju) - Modified telegram channel for ncp sens sms
+- HyungJu Sung (2018~2019)
+- [Syed Irfaq R.](https://github.com/irazasyed) (~2018)
 
-- [Syed Irfaq R.](https://github.com/irazasyed) - Original Telegram Channel
 
-- [All Contributors](../../contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/HyungJu/laravel-sens/blob/master/LICENSE.md) for more information.

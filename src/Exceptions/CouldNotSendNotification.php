@@ -8,6 +8,7 @@ class CouldNotSendNotification extends \Exception
     {
         return new static($response);
     }
+
     public static function NCPTokenNotProvided($message)
     {
         return new static($message);

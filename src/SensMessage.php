@@ -4,7 +4,6 @@ namespace NotificationChannels\Sens;
 
 class SensMessage
 {
-    use LegacySensMessageable;
 
     public $payload = [];
 

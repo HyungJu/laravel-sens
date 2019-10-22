@@ -59,6 +59,7 @@ NCP에서는 토큰을 통해 사용자를 인증하여 SMS를 전송합니다.
         'x-ncp-auth-key' => env('SENS_AUTH_KEY'),
         'x-ncp-service-secret' => env('SENS_AUTH_SECRET'),
         'serviceid' => env('SENS_SERVICE_ID'),
+        'from' => env('SENS_DEFAULT_FROM'),
     ],
 ...
 ```
@@ -71,6 +72,7 @@ NCP에서는 토큰을 통해 사용자를 인증하여 SMS를 전송합니다.
 SENS_AUTH_KEY=key
 SENS_AUTH_SECRET=key
 SENS_SERVICE_ID=key
+SENS_DEFAULT_FROM=key
 ```
 
 다음과같은 내용을 입력하면 됩니다.
@@ -111,6 +113,8 @@ class InvoicePaid extends Notification
 
 
 Laravel SENS에서는 다음과같은 SMS 전송 메소드들을 제공합니다.
+
+.env 파일에서 SENS_DEFAULT_FROM 를 설정 하였다면 from 을 생략하여도 됩니다. 
 
 - `to` : 수신자 전화번호 설정
 - `content` : SMS 내용

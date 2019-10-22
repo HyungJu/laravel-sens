@@ -16,12 +16,12 @@ class SensServiceProvider extends ServiceProvider
         $this->app->when(SensChannel::class)
             ->needs(Sens::class)
             ->give(function () {
-                return new Sens(
+                return (new Sens(
                     config('services.sens.x-ncp-auth-key'),
                     config('services.sens.x-ncp-service-secret'),
                     config('services.sens.serviceid'),
                     new HttpClient()
-                );
+                ))->setDefaultFrom(config('services.sens.from'));
             });
 
 

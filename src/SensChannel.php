@@ -21,18 +21,17 @@ class SensChannel
         $this->sens = $sens;
     }
 
+
     /**
-     * Send the given notification.
-     *
-     * @param mixed $notifiable
+     * @param $notifiable
      * @param Notification $notification
+     * @throws Exceptions\CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification)
     {
         $message = $notification->toSens($notifiable);
 
-        $params = $message->toArray();
-        $this->sens->sendMessage($params);
+        $this->sens->send($message);
 
 
     }

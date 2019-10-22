@@ -4,6 +4,9 @@ namespace NotificationChannels\Sens;
 
 class SensMessage
 {
+
+    use LegacyScesMesaageable;
+
     public $payload = [];
 
 
@@ -23,37 +26,42 @@ class SensMessage
         return $this;
     }
 
-    public function from($number)
+    public function from(string $number)
     {
         $this->payload['from'] = $number;
         return $this;
     }
 
-    public function tosms()
+    public function getAttribute(string $key)
+    {
+        return $this->payload[$key] ?? null;
+    }
+
+    public function toSMS()
     {
         $this->payload['type'] = 'sms';
         return $this;
     }
 
-    public function tolms()
+    public function toLMS()
     {
         $this->payload['type'] = 'lms';
         return $this;
     }
 
-    public function forad()
+    public function forAD()
     {
         $this->payload['contentType'] = 'AD';
         return $this;
     }
 
-    public function forcommon()
+    public function forCommon()
     {
         $this->payload['contentType'] = 'COMM';
         return $this;
     }
 
-    public function countrycode($code)
+    public function countryCode($code)
     {
         $this->payload['countryCode'] = $code;
         return $this;

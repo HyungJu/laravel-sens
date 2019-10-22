@@ -7,7 +7,7 @@ class SensMessage
 
     public $payload = [];
 
-    public static function create(array $payload)
+    public static function create(array $payload = [])
     {
         return (new static())->setPayload($payload);
     }

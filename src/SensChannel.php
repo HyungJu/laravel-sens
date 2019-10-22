@@ -31,11 +31,6 @@ class SensChannel
     {
         $message = $notification->toSens($notifiable);
 
-        if (is_string($message)) {
-            $message = SensMessage::create($message);
-        }
-
-
         $params = $message->toArray();
         $this->sens->sendMessage($params);
 

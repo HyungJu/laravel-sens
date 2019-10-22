@@ -13,8 +13,6 @@ class SensServiceProvider extends ServiceProvider
     public function boot()
     {
         // Bootstrap code here.
-
-
         $this->app->when(SensChannel::class)
             ->needs(Sens::class)
             ->give(function () {

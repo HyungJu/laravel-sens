@@ -3,9 +3,7 @@
 namespace NotificationChannels\Sens;
 
 use GuzzleHttp\Client as HttpClient;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Post\PostFile;
-use NotificationChannels\Telegram\Exceptions\CouldNotSendNotification;
+use NotificationChannels\Sens\Exceptions\CouldNotSendNotification;
 
 class Sens
 {
@@ -58,7 +56,7 @@ class Sens
             ]);
 
 
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             throw CouldNotSendNotification::serviceRespondedWithAnError($exception);
         }
     }

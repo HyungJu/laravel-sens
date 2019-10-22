@@ -2,16 +2,18 @@
 
 namespace NotificationChannels\Sens;
 
-use Illuminate\Support\Arr;
-
 class SensMessage
 {
     public $payload = [];
 
 
+    /**
+     * @param string $content
+     * @return SensMessage
+     */
     public static function create($content = '')
     {
-        return new static($content);
+        return (new static())->content($content);
     }
 
 

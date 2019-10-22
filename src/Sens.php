@@ -3,7 +3,6 @@
 namespace NotificationChannels\Sens;
 
 use GuzzleHttp\Client as HttpClient;
-use NotificationChannels\Sens\Exceptions\NCPTokenNotProvidedException;
 
 class Sens
 {

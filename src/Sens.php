@@ -4,7 +4,7 @@ namespace NotificationChannels\Sens;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\ClientException;
-use NotificationChannels\Telegram\Exceptions\CouldNotSendNotification;
+use NotificationChannels\Sens\Exceptions\CouldNotSendNotification;
 use GuzzleHttp\Post\PostFile;
 
 class Sens

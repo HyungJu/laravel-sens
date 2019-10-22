@@ -25,8 +25,6 @@ class Sens
 
     public function send(SensMessage $message)
     {
-        $this->validateSetting();
-
         if (!$message->getAttribute('from') && $this->getDefaultFrom()) {
             $message->from($this->getDefaultFrom());
         }
@@ -43,12 +41,6 @@ class Sens
         ]);
     }
 
-    private function validateSetting()
-    {
-        if (!isset($this->authKey) || !isset($this->serviceSecret) || !isset($this->serviceId)) {
-            throw new NCPTokenNotProvidedException('Naver Cloud Platform Token Required');
-        }
-    }
 
     public function setDefaultFrom($from)
     {

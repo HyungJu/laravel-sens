@@ -25,7 +25,6 @@ class SensChannel
     /**
      * @param $notifiable
      * @param Notification $notification
-     * @throws Exceptions\CouldNotSendNotification
      */
     public function send($notifiable, Notification $notification)
     {

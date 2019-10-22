@@ -19,8 +19,7 @@ class SensServiceProvider extends ServiceProvider
                 return (new Sens(
                     config('services.sens.x-ncp-auth-key'),
                     config('services.sens.x-ncp-service-secret'),
-                    config('services.sens.serviceid'),
-                    new HttpClient()
+                    config('services.sens.serviceid')
                 ))->setDefaultFrom(config('services.sens.from'));
             });
 

@@ -15,15 +15,19 @@ class Sens
     protected $service_secret = null;
     protected $service_id = null;
 
+
     /**
-     * @param null $token
+     * Sens constructor.
+     * @param $authkey
+     * @param $service_secret
+     * @param $service_id
      * @param HttpClient|null $httpClient
      */
     public function __construct($authkey, $service_secret, $service_id, HttpClient $httpClient = null)
     {
-        $this->{"X-NCP-auth-key"} = $authkey;
-        $this->{"X-NCP-service-secret"} = $service_secret;
-        $this->serviceId = $service_id;
+        $this->authkey = $authkey;
+        $this->service_secret = $service_secret;
+        $this->service_id = $service_id;
 
         $this->http = $httpClient;
     }
@@ -41,17 +45,16 @@ class Sens
 
     public function sendMessage($params)
     {
-        if (empty($this->{"X-NCP-auth-key"}) || empty($this->{"X-NCP-service-secret"}) || empty($this->serviceId)) {
+        if (!isset($this->authkey) || !isset($this->service_secret) || !isset($this->service_id)) {
             throw CouldNotSendNotification::NCPTokenNotProvided('Naver Cloud Platform Token Required');
         }
 
-        $endPointUrl = 'https://api-sens.ncloud.com/v1/sms/services/' . $this->serviceId . '/messages';
+        $endPointUrl = 'https://api-sens.ncloud.com/v1/sms/services/' . $this->service_id . '/messages';
 
         try {
 
-            $post_name = 'form_params';
             return $this->httpClient()->post($endPointUrl, [
-                'headers' => array('Content-Type' => 'application/json', 'X-NCP-auth-key' => $this->{"X-NCP-auth-key"}, 'X-NCP-service-secret' => $this->{"X-NCP-service-secret"}),
+                'headers' => array('Content-Type' => 'application/json', 'X-NCP-auth-key' => $this->authkey, 'X-NCP-service-secret' => $this->service_secret),
                 'body' => json_encode($params)
             ]);
 

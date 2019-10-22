@@ -100,9 +100,9 @@ class InvoicePaid extends Notification
     {
         return SensMessage::create()
             ->content("[라라벨 NCP Sens Notification Channel TEST]\n라라벨의 네이버 클라우드 플랫폼 SENS 채널 테스트입니다. 이 문자는 ".$notifiable->name." 유저에게 발송되었습니다.")
-            ->countrycode("82")
-            ->forcommon()
-            ->tolms()
+            ->countryCode("82")
+            ->forCommon()
+            ->toLMS()
             ->subject("LMS로 전송")
             ->to($notifiable->phone)
             ->from("등록된 발신자번호");

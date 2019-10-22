@@ -5,22 +5,26 @@ namespace NotificationChannels\Sens;
 class SensMessage
 {
 
-    use LegacyScesMesaageable;
-
     public $payload = [];
 
-
-    /**
-     * @param string $content
-     * @return SensMessage
-     */
-    public static function create($content = '')
+    public static function create(array $payload)
     {
-        return (new static())->content($content);
+        return (new static())->setPayload($payload);
     }
 
 
-    public function to($number)
+    public function getAttribute(string $key)
+    {
+        return $this->payload[$key] ?? null;
+    }
+
+    public function setPayload(array $payload)
+    {
+        $this->payload = $payload;
+        return $this;
+    }
+
+    public function to(string $number)
     {
         $this->payload['to'] = array($number);
         return $this;
@@ -32,10 +36,6 @@ class SensMessage
         return $this;
     }
 
-    public function getAttribute(string $key)
-    {
-        return $this->payload[$key] ?? null;
-    }
 
     public function toSMS()
     {
@@ -61,19 +61,19 @@ class SensMessage
         return $this;
     }
 
-    public function countryCode($code)
+    public function countryCode(string $code)
     {
         $this->payload['countryCode'] = $code;
         return $this;
     }
 
-    public function content($content)
+    public function content(string $content)
     {
         $this->payload['content'] = $content;
         return $this;
     }
 
-    public function subject($subject)
+    public function subject(string $subject)
     {
         $this->payload['subject'] = $subject;
         $this->payload['type'] = 'lms';

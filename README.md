@@ -128,15 +128,6 @@ Laravel SENS에서는 다음과같은 SMS 전송 메소드들을 제공합니다
 
 
 
-## 기여
-
-**PR**혹은 **Issue**를 남겨주시면 됩니다. 
-
-
-
-## Credits
-- HyungJu Sung (2018~2019)
-- [Syed Irfaq R.](https://github.com/irazasyed) (~2018)
 
 
 

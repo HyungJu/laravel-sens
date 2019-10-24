@@ -3,7 +3,6 @@
 namespace NotificationChannels\Sens;
 
 use Illuminate\Notifications\Notification;
-use NotificationChannels\Sens\Exceptions\CouldNotSendNotification;
 
 class SensChannel
 {
@@ -22,25 +21,17 @@ class SensChannel
         $this->sens = $sens;
     }
 
+
     /**
-     * Send the given notification.
-     *
-     * @param mixed        $notifiable
+     * @param $notifiable
      * @param Notification $notification
      */
     public function send($notifiable, Notification $notification)
     {
         $message = $notification->toSens($notifiable);
 
-        if (is_string($message)) {
-            $message = SensMessage::create($message);
-        }
+        $this->sens->send($message);
 
-
-      
-        $params = $message->toArray();
-        $this->sens->sendMessage($params);
-        
 
     }
 }

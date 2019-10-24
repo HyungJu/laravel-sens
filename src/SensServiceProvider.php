@@ -1,6 +1,7 @@
 <?php
 
 namespace NotificationChannels\Sens;
+
 use GuzzleHttp\Client as HttpClient;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,19 +13,16 @@ class SensServiceProvider extends ServiceProvider
     public function boot()
     {
         // Bootstrap code here.
-
-       
         $this->app->when(SensChannel::class)
             ->needs(Sens::class)
             ->give(function () {
-                return new Sens(
+                return (new Sens(
                     config('services.sens.x-ncp-auth-key'),
-config('services.sens.x-ncp-service-secret'),
-config('services.sens.serviceid'),
-                    new HttpClient()
-                );
+                    config('services.sens.x-ncp-service-secret'),
+                    config('services.sens.serviceid')
+                ))->setDefaultFrom(config('services.sens.from'));
             });
-        
+
 
     }
 

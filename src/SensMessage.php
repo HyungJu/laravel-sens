@@ -2,8 +2,6 @@
 
 namespace NotificationChannels\Sens;
 
-use DateTime;
-
 class SensMessage
 {
 
@@ -13,6 +11,7 @@ class SensMessage
     {
         return (new static())->setPayload($payload);
     }
+
 
     public function getAttribute(string $key)
     {
@@ -81,36 +80,8 @@ class SensMessage
         return $this;
     }
 
-    public function reserveTime(DateTime $datetime)
-    {
-        $this->payload['reserveTime'] = $datetime->format('yyyy-MM-dd HH:mm');
-        return $this;
-    }
-
-    public function reserveTimeZone(string $timezone)
-    {
-        $this->payload['reserveTimeZone'] = $timezone;
-        return $this;
-    }
-
-    public function scheduleCode(string $scheduleCode)
-    {
-        $this->payload['scheduleCode'] = $scheduleCode;
-        return $this;
-    }
-
-    public function generateSignature(string $secretKey)
-    {
-        return hash_hmac('sha256', $this->toJson(), $secretKey);
-    }
-
     public function toArray()
     {
         return $this->payload;
-    }
-
-    public function toJson()
-    {
-        return json_encode($this->toArray());
     }
 }

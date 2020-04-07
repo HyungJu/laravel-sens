@@ -7,17 +7,16 @@ use GuzzleHttp\Client as HttpClient;
 class Sens
 {
     private $http;
-    private $iamAccessKey;
-    private $secretKey;
+    private $authKey;
+    private $serviceSecret;
     private $serviceId;
     private $defaultFrom;
-    private $defaultTimezone;
 
 
-    public function __construct(string $iamAccessKey, string $secretKey, string $serviceId)
+    public function __construct(string $authKey, string $serviceSecret, string $serviceId)
     {
-        $this->iamAccessKey = $iamAccessKey;
-        $this->secretKey = $secretKey;
+        $this->authKey = $authKey;
+        $this->serviceSecret = $serviceSecret;
         $this->serviceId = $serviceId;
         $this->http = new HttpClient();
     }
@@ -25,27 +24,19 @@ class Sens
 
     public function send(SensMessage $message)
     {
-        if (!$message->getAttribute('from') && $this->getDefaultFrom())
-        {
+        if (!$message->getAttribute('from') && $this->getDefaultFrom()) {
             $message->from($this->getDefaultFrom());
         }
 
-        if($this->getDefaultTimezone())
-        {
-            date_default_timezone_set($this->getDefaultTimezone());
-        }
-
-        $endPointUrl = 'https://sens.apigw.ntruss.com/sms/v2/services/' . $this->serviceId . '/messages';
-
+        $endPointUrl = 'https://api-sens.ncloud.com/v1/sms/services/' . $this->serviceId . '/messages';
 
         return $this->http->post($endPointUrl, [
             'headers' => [
                 'Content-Type' => 'application/json',
-                'x-ncp-apigw-timestamp' => time(),
-                'x-ncp-iam-access-key' => $this->iamAccessKey,
-                'x-ncp-apigw-signature-v2' => $message->generateSignature($this->secretKey)
+                'X-NCP-auth-key' => $this->authKey,
+                'X-NCP-service-secret' => $this->serviceSecret
             ],
-            'body' => $message->toJson()
+            'body' => json_encode($message->toArray())
         ]);
     }
 
@@ -59,17 +50,6 @@ class Sens
     public function getDefaultFrom()
     {
         return $this->defaultFrom;
-    }
-
-    public function setDefaultTimezone($timezone)
-    {
-        $this->defaultTimezone = $timezone;
-        return $this;
-    }
-
-    public function getDefaultTimezone()
-    {
-        return $this->defaultTimezone;
     }
 }
 

@@ -17,12 +17,10 @@ class SensServiceProvider extends ServiceProvider
             ->needs(Sens::class)
             ->give(function () {
                 return (new Sens(
-                    config('services.sens.x-ncp-iam-access-key'),
-                    config('services.sens.x-ncp-secret-key'),
+                    config('services.sens.x-ncp-auth-key'),
+                    config('services.sens.x-ncp-service-secret'),
                     config('services.sens.serviceid')
-                ))->setDefaultFrom(config('services.sens.from')
-                  ->setDefaultTimezone(config('services.sens.timezone'))
-                );
+                ))->setDefaultFrom(config('services.sens.from'));
             });
 
 

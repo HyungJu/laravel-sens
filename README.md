@@ -1,6 +1,6 @@
 # Laravel Sens
 
-Development In Progress
+Development In Progress; testing purpose only
 
 - [x] Sens API v2 적용 
 - [ ] PHPUnit 단위테스트 작성

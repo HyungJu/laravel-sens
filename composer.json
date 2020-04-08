@@ -12,17 +12,11 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.3",
     "guzzlehttp/guzzle": "^6.2",
     "illuminate/notifications": ">=5.3",
     "illuminate/support": ">=5.1",
     "ext-json": "*"
-  },
-  "require-dev": {
-    "mockery/mockery": "^0.9.5",
-    "phpunit/phpunit": "5.*",
-    "orchestra/testbench": "3.4.x-dev",
-    "laravel/framework": "5.5.x"
   },
   "autoload": {
     "psr-4": {

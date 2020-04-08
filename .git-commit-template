@@ -1,0 +1,27 @@
+# Udacity Style Guide
+# [type]:[subject]
+
+# [body]
+
+# [footer]
+
+# type
+# - feat: a new feature
+# - update: improve code, improve a feature
+# - fix: a bug fix
+# - docs: changes to documentation
+# - style: formatting, missing semi colons, etc; no code change
+# - refactor: refactoring production code
+# - test: adding tests, refactoring test; no production code change
+# - chore: updating build tasks, package manager configs, etc; no production code change
+
+# subject
+# describe what a commit does
+# no more than 50 characters
+
+# body
+# explain *what* and *why* of a commit, not the *how*
+# no more than 72 characters
+
+# footer
+# used to reference issue tracker IDs

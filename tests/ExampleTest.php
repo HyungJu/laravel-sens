@@ -1,12 +1,13 @@
 <?php
 
-namespace NotificationChannels\Telegram\Test;
 
-class ExampleTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ExampleTest extends TestCase
 {
     /** @test */
     public function true_is_true()
     {
-        $this->assertTrue(true);
+        $this->assertSame(0, 0);
     }
 }

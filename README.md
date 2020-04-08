@@ -1,3 +1,5 @@
+> For SENS API v2, check [v2 branch](https://github.com/HyungJu/laravel-sens/tree/v2). 
+
 # Laravel Sens
 
 라라벨용 [NCP](https://www.ncloud.com/) SENS SMS 전송 채널.

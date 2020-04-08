@@ -1,4 +1,8 @@
-# Laravel Sens
+<p align="center">
+  <img alt="logo" src="https://github.com/HyungJu/laravel-sens/blob/v2/sens.png" width="500" >
+</p>
+
+______
 
 Development In Progress; testing purpose only
 

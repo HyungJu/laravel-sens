@@ -1,4 +1,5 @@
 > For SENS API v2, check [v2 branch](https://github.com/HyungJu/laravel-sens/tree/v2). 
+> SENS v1 API는 더이상 지원되지 않는다고 합니다.
 
 # Laravel Sens
 
